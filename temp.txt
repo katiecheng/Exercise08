@@ -1,0 +1,26 @@
+make_chains(filename)
+    opens, reads, splits file into a list of words
+    adds key:value to dictionary OR adds value to list of words
+    dictionary = {(bigram):[list of words that follow]}
+
+make_text(dictionary)
+    chooses random bigram as start
+    appends random following_word to string
+    takes the second word in the original bigram plus the following word as a tuple and starts the loop again
+    loops until bigram not_in dictionary as key
+    prints string
+
+    random_sentence = (you, are) + 
+
+
+
+make_chains(filename1, filename2)
+    opens, reads, splits files into lists of words
+
+    dictionary = {(bigram):[[list source1],[list source2]]}
+
+    dictionary_source1= {(bigram):[list of words that follow]}
+    dictionary_source2= {(bigram):[list of words that follow]}
+
+
+make_text(dictionary)

@@ -3,23 +3,36 @@
 import sys
 import random
 
-def make_chains(corpus):
+def make_chains(corpus1, corpus2):
     """Takes an input text as a string and returns a dictionary of
     markov chains."""
-    text = open(corpus)
-    contents = text.read()
-    list_text = contents.split()
+    text1 = open(corpus1)
+    text2 = open(corpus2)
+    
+    contents1 = text1.read()
+    contents2 = text2.read()
 
-    swift_dict = {}
+    list_text1 = contents1.split()
+    list_text2 = contents2.split()
 
-    for i in range(len(list_text)-2):
-        key = (list_text[i], list_text[i+1])
-        if key in swift_dict:
-            swift_dict[key] += [list_text[i+2]]
+    dict1 = {}
+    dict2 = {}
+
+    for i in range(len(list_text1)-2):
+        key = (list_text1[i], list_text1[i+1])
+        if key in dict1:
+            dict1[key] += [list_text1[i+2]]
         else:
-            swift_dict[key] = [list_text[i+2]]
+            dict1[key] = [list_text1[i+2]]
 
-    return swift_dict
+    for i in range(len(list_text2)-2):
+        key = (list_text2[i], list_text2[i+1])
+        if key in dict2:
+            dict2[key] += [list_text2[i+2]]
+        else:
+            dict2[key] = [list_text2[i+2]]
+
+    return [dict1, dict2]
 
 def make_text(chains):
     """Takes a dictionary of markov chains and returns random text
@@ -38,10 +51,9 @@ def make_text(chains):
 
 def main():
     args = sys.argv
-
-    input_text = args[1]
-    chain_dict = make_chains(input_text)
-    random_text = make_text(chain_dict)
+    script, input_text1, input_text2 = args
+    chain_dict = make_chains(input_text1, input_text2)
+    # random_text = make_text(chain_dict)
 
 if __name__ == "__main__":
     main()
