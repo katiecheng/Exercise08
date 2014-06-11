@@ -2,6 +2,7 @@
 
 import sys
 import random
+import string
 
 def make_chains(corpus1, corpus2):
     """Takes an input text as a string and returns a dictionary of
@@ -34,26 +35,46 @@ def make_chains(corpus1, corpus2):
 
     return [dict1, dict2]
 
+def check_upper(chains, switch):
+    random_tuple = random.choice(chains[switch].keys())
+
+    while random_tuple[0][0] not in string.uppercase:
+        random_tuple = random.choice(chains[switch].keys())
+    
+    return random_tuple
+
 def make_text(chains):
     """Takes a dictionary of markov chains and returns random text
     based off an original text."""
+    switch = 0
 
-    start = random.choice(chains.keys())
-    random_output = start[0] + ' ' + start[1]
-    current_key = start
+    random_tuple = check_upper(chains, switch)
 
-    while chains.get(current_key):
-        next_word = random.choice(chains[current_key])
-        current_key = (current_key[1], next_word)
-        random_output += " %s" % next_word
-    
-    print random_output
+    random_output = random_tuple[0] + ' ' + random_tuple[1]
+    current_key = random_tuple
+
+    i = 0
+
+    while i < 30:
+        i += 1
+        if chains[(switch + 1) % 2].get(current_key):
+            switch = (switch + 1) % 2
+            next_word = random.choice(chains[switch][current_key])
+            current_key = (current_key[1], next_word)
+            random_output += " %s" % next_word
+        else:
+            next_word = random.choice(chains[switch][current_key])
+            current_key = (current_key[1], next_word)
+            random_output += " %s" % next_word
+
+    return random_output
 
 def main():
     args = sys.argv
     script, input_text1, input_text2 = args
-    chain_dict = make_chains(input_text1, input_text2)
-    # random_text = make_text(chain_dict)
+    chain_list = make_chains(input_text1, input_text2)
+    random_text = make_text(chain_list)
+    print random_text
 
 if __name__ == "__main__":
     main()
