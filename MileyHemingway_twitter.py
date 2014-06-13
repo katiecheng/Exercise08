@@ -2,6 +2,7 @@ import twitter
 import markov
 
 message = markov.main()
+print message
 
 api_file = open('api.txt')
 api_contents = api_file.read()

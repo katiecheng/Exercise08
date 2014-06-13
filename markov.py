@@ -2,7 +2,8 @@
 
 import sys
 import random
-import string
+import time
+# import string
 
 def make_chains(corpus1, corpus2):
     """Takes an input text as a string and returns a dictionary of
@@ -76,7 +77,8 @@ def make_text(chains):
 def check_upper(chains, switch):
     random_tuple = random.choice(chains[switch].keys())
 
-    while random_tuple[0][0] not in string.uppercase:
+    # while random_tuple[0][0] not in string.uppercase:
+    while random_tuple[0][0] not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
         random_tuple = random.choice(chains[switch].keys())
     
     return random_tuple
@@ -143,15 +145,18 @@ def twitterize(rand_output):
     twitter_output = shortened_output
     return twitter_output
 
-def final_output(twitter_text):
+def final_output(twitter_text, start):
     if twitter_text != [] and check_miley_ernest2(twitter_text): 
     # If no text generated with periods, miley, and ernest, try again.
+        print time.time()-start
+        print twitter_text
         return twitter_text
     else:
         main()
 
 
 def main():
+    start = time.time()
     global has_miley
     global has_ernest
     has_miley = False
@@ -163,7 +168,9 @@ def main():
     chain_list = make_chains(input_text1, input_text2)
     random_text = make_text(chain_list)
     twitter_text = twitterize(random_text)
-    return final_output(twitter_text)
+    return final_output(twitter_text, start)
+
+
 
 if __name__ == "__main__":
     main()
