@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import sys
 import random
 import time
@@ -8,6 +6,7 @@ import time
 def make_chains(corpus1, corpus2):
     """Takes an input text as a string and returns a dictionary of
     markov chains."""
+
     text1 = open(corpus1) # open files
     text2 = open(corpus2)
     
@@ -149,10 +148,9 @@ def final_output(twitter_text, start):
     if twitter_text != [] and check_miley_ernest2(twitter_text): 
     # If no text generated with periods, miley, and ernest, try again.
         print time.time()-start
-        print twitter_text
         return twitter_text
     else:
-        main()
+        return main()
 
 
 def main():
